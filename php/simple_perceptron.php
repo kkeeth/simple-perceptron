@@ -26,3 +26,19 @@ function calc_vector($wVec = '', $xVec = '') {
 
    return $ret;
 }
+
+// 学習部分　識別関数に学習データを順繰りに入れて、重みベクトルを更新する
+function update_weight($wVec, $xVec, $label) {
+   list($ret, $val] = calc_recognition($wVec, $xVec);
+
+   // 学習係数(lerning cofficient)　なるべく1未満
+   $lc = 0.3;
+
+   if ($val * $label < 0) {
+      $wTmp = $wVec + $c * $label* $xVec;
+      return $wTmp
+   } else {
+      return $wVec
+   }
+}
+
