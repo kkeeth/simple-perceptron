@@ -3,7 +3,7 @@
 - PHP 5.5
 
 ### ラインセンス
-ライセンスは「[MIT License](https://github.com/k-kuwahara/event_manage/blob/master/LICENSE.md)」です。
+ライセンスは「[MIT License](https://github.com/k-kuwahara/simple_perceptron/blob/master/LICENSE.md)」です。
 
 ### その他
 コードレビュー、ご意見をいつでもお待ちしております！
