@@ -5,7 +5,7 @@
 - PHPUnit
 
 ### 使い方
-#### Composerのインストール$
+#### Composerのインストール
 ```bash
 $ composer self-update
 $ composer install
