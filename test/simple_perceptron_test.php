@@ -1,5 +1,5 @@
 <?php
-require_once "../php/simple_perceptron.php";
+require_once "../src/simple_perceptron.php";
 
 class SimplePerceptronTest extends PHPUnit_Framework_TestCase {
 
