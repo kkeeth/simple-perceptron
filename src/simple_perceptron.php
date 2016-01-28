@@ -56,7 +56,7 @@ function Calc_vector($wVec = '', $xVec = '')
 function Update_weight($wVec, $xVec, $label)
 {
    $rets = '';
-   list($ret, $val] = Calc_recognition($wVec, $xVec);
+   list($ret, $val) = Calc_recognition($wVec, $xVec);
 
    // 学習係数(lerning cofficient)　なるべく1未満
    $lc = 0.3;
