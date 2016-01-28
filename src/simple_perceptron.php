@@ -3,16 +3,20 @@
 /**
  * 識別関数y=w^Txの計算
  *
- * @param Array $weight 重みベクトル
- * @param Array $data   入力データ
+ * @param Array  $weight 重みベクトル
+ * @param Array  $data   入力データ
+ * @param String $label  期待値ラベル
  *
  * @return Array [$ret, $val] 判定結果と値
  */
-function Calc_recognition($weight = '', $data = '')
+function Calc_recognition($weight = '', $data = '', $label = '')
 {
    // ベクトル同士の計算
    $val = Calc_vector($weight, $data);
    $ret = $val >= 0 ? 1 : -1;
+
+   // 計算結果で識別
+   if ($ret != $label) Update_weight($weight, $data, $label);
 
    return [$ret, $val];
 }
@@ -47,9 +51,9 @@ function Calc_vector($weight = '', $data = '')
 /**
  * 学習部分　識別関数に学習データを順繰りに入れて、重みベクトルを更新する
  *
- * @param Array $weight 重みベクトル
- * @param Array $data   学習データ
- * @param Array $label  判定結果ラベル
+ * @param Array  $weight 重みベクトル
+ * @param Array  $data   学習データ
+ * @param String $label  識別結果ラベル
  *
  * @return Array $rets  計算結果
  */
@@ -62,7 +66,7 @@ function Update_weight($weight, $data, $label)
    $lc = 0.3;
 
    if ($val * $label < 0) {
-      $rets = $weight + $c * $label* $data;
+      $rets = $weight + $lc * $label * $data;
    } else {
       $rets = $weight;
    }
