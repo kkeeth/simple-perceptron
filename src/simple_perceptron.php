@@ -1,46 +1,59 @@
 <?php
 
 /**
- * 識別関数y=w^Txの計算
+ * data convert special vector 
+ * 
+ * @param Array $data input data
  *
- * @param Array  $weight 重みベクトル
- * @param Array  $data   入力データ
- * @param String $label  期待値ラベル
+ * @return Array $data added data
+ */
+function Get_data($data)
+{
+   array_push($data, 1);
+   return $data;
+}
+
+/**
+ * calculate identification function y=w^Tx
  *
- * @return Array [$ret, $val] 判定結果と値
+ * @param Array  $weight weight vector
+ * @param Array  $data   input data
+ * @param String $label  expect label
+ *
+ * @return Array [$ret, $val] result label,value
  */
 function Calc_recognition($weight = '', $data = '', $label = '')
 {
-   // ベクトル同士の計算
-   $val = Calc_vector($weight, $data);
+   // calculate vector each other
+   $val = Multiply_vector($weight, $data);
    $ret = $val >= 0 ? 1 : -1;
 
-   // 計算結果で識別
+   // identify
    if ($ret != $label) Update_weight($weight, $data, $label);
 
    return [$ret, $val];
 }
 
 /**
- * ベクトル同士の計算
+ * Multiply vector to each other
  *
- * @param Array $weight 重みベクトル
- * @param Array $data   入力データ
- *
- * @return Int   $ret  計算結果
+ * @param Array  $weight weight vector
+ * @param Array  $data   input data
+ * 
+ * @return Int $ret result
  */
-function Calc_vector($weight = '', $data = '')
+function Multiply_vector($weight = '', $data = '')
 {
-   // 戻り値用変数
+   // return variable
    $ret = 0;
 
-   // 個数チェック
+   // format check
    if (count($weight) != count($data)) return -1;
 
-   // nullチェック
+   // null check
    if ($weight == '' || $data == '') return -1;
 
-   // 計算
+   // calculate
    foreach ($weight as $key => $value) {
       $ret += $weight[$key] * $data[$key];
    }
@@ -48,28 +61,58 @@ function Calc_vector($weight = '', $data = '')
    return $ret;
 }
 
+
 /**
- * 学習部分　識別関数に学習データを順繰りに入れて、重みベクトルを更新する
+ * Add vector to each other
  *
- * @param Array  $weight 重みベクトル
- * @param Array  $data   学習データ
- * @param String $label  識別結果ラベル
+ * @param Array  $weight weight vector
+ * @param Array  $data   input data
+ * 
+ * @return Int $ret result
+ */
+function Add_vector($weight = '', $data = '')
+{
+   // return array
+   $ret = [];
+
+   // format check
+   if (count($weight) != count($data)) return -1;
+
+   // null check
+   if ($weight == '' || $data == '') return -1;
+
+   // calculate
+   foreach ($weight as $key => $value) {
+      $ret[$key] += $weight[$key] + $data[$key];
+   }
+
+   return $ret;
+}
+
+
+/**
+ * learning part(update weight vector)
  *
- * @return Array $rets  計算結果
+ * @param Array  $weight weight vector
+ * @param Array  $data   learning data
+ * @param String $label  expect label
+ *
+ * @return Array $rets result
  */
 function Update_weight($weight, $data, $label)
 {
    $rets = '';
-   list($ret, $val) = Calc_recognition($weight, $data);
+   $new_data = [];
 
-   // 学習係数(lerning cofficient)　なるべく1未満
+   // learning cofficient
    $lc = 0.3;
 
-   if ($val * $label < 0) {
-      $rets = $weight + $lc * $label * $data;
-   } else {
-      $rets = $weight;
+   // learn
+   foreach ($data as $val) {
+      array_push($new_data, $lc * $label * $val);
    }
+
+   $rets = Add_vector($weight, $new_data);
    return $rets;
 }
 
