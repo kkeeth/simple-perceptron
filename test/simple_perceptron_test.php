@@ -1,9 +1,11 @@
 <?php
 require_once "../src/simple_perceptron.php";
 
-class SimplePerceptronTest extends PHPUnit_Framework_TestCase {
+class SimplePerceptronTest extends PHPUnit_Framework_TestCase
+{
 
-   public function test_index() {
+   public function test_index()
+   {
       // 正常系
       list($ret, $val) = Calc_recognition([1,1,-1], [2, 0, 1], 1);
       $this->assertEquals(1, $ret);

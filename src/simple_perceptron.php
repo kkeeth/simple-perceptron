@@ -29,7 +29,7 @@ function Calc_recognition($weight = '', $data = '', $label = '')
    $ret = $val >= 0 ? 1 : -1;
 
    // identify
-   if ($ret != $label) Update_weight($weight, $data, $label);
+   if ($ret != $label) Update_weight($weight, $data, $label); 
 
    return [$ret, $val];
 }
@@ -37,8 +37,8 @@ function Calc_recognition($weight = '', $data = '', $label = '')
 /**
  * Multiply vector to each other
  *
- * @param Array  $weight weight vector
- * @param Array  $data   input data
+ * @param Array $weight weight vector
+ * @param Array $data   input data
  * 
  * @return Int $ret result
  */
@@ -48,10 +48,10 @@ function Multiply_vector($weight = '', $data = '')
    $ret = 0;
 
    // format check
-   if (count($weight) != count($data)) return -1;
+   if (count($weight) != count($data)) return -1; 
 
    // null check
-   if ($weight == '' || $data == '') return -1;
+   if ($weight == '' || $data == '') return -1; 
 
    // calculate
    foreach ($weight as $key => $value) {
@@ -65,8 +65,8 @@ function Multiply_vector($weight = '', $data = '')
 /**
  * Add vector to each other
  *
- * @param Array  $weight weight vector
- * @param Array  $data   input data
+ * @param Array $weight weight vector
+ * @param Array $data   input data
  * 
  * @return Int $ret result
  */
@@ -76,10 +76,10 @@ function Add_vector($weight = '', $data = '')
    $ret = [];
 
    // format check
-   if (count($weight) != count($data)) return -1;
+   if (count($weight) != count($data)) return -1; 
 
    // null check
-   if ($weight == '' || $data == '') return -1;
+   if ($weight == '' || $data == '') return -1; 
 
    // calculate
    foreach ($weight as $key => $value) {
