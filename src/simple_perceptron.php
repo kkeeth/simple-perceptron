@@ -1,8 +1,46 @@
 <?php
+define('DATA_COUNT', 5);
+define('DIMENSION', 3);
 
 /**
- * data convert special vector 
- * 
+ * Main function
+ *
+ * @return Array updated weight vector
+ */
+function index()
+{
+   $ret = '';
+   list($data, $label) = Create_data();
+
+   return Calc_recognition('', $data, $label);
+}
+
+/**
+ * Create input data(vector)
+ *
+ * @return Array $data input data
+ */
+function Create_data()
+{
+   // dummy data
+   $data   = range(1, DATA_COUNT);
+   $labels = range(1, DATA_COUNT);
+
+   // create input data
+   foreach ($data as $key => $value) {
+      $data[$key]   = [];
+      $labels[$key] = mt_rand(-1, 1) >= 0 ?  1 : -1;
+      for ($i = 0; $i < DIMENSION; $i++) {
+         $data[$key][$i] = mt_rand(1, 5);
+      }
+   }
+
+   return [$data, $labels];
+}
+
+/**
+ * Data convert special vector
+ *
  * @param Array $data input data
  *
  * @return Array $data added data
@@ -14,24 +52,40 @@ function Get_data($data)
 }
 
 /**
- * calculate identification function y=w^Tx
+ * Calculate identification function y=w^Tx
  *
- * @param Array  $weight weight vector
- * @param Array  $data   input data
- * @param String $label  expect label
+ * @param Array $weight weight vector
+ * @param Array $data   input data
+ * @param Array $label  expect label
  *
  * @return Array [$ret, $val] result label,value
  */
 function Calc_recognition($weight = '', $data = '', $label = '')
 {
-   // calculate vector each other
-   $val = Multiply_vector($weight, $data);
-   $ret = $val >= 0 ? 1 : -1;
+   $cnt = 0;
+   $updated_weight = [];
+   if ($weight == '') $weight = array_fill(0, DIMENSION+1, 0);
+   while (true) {
+      $cnt++;
+      $miss_count = 0;
 
-   // identify
-   if ($ret != $label) Update_weight($weight, $data, $label); 
+      foreach ($data as $key => $point_data) {
+         // calculate vector each other
+         $val = Multiply_vector($weight, Get_data($point_data));
+         $ret = $val >= 0 ? 1 : -1;
+         // identify
+         if ($ret !== $label[$key]) {
+            $weight = Update_weight($weight, Get_data($point_data), $label[$key]);
+            $miss_count++;
+         }
+      }
 
-   return [$ret, $val];
+      if ($miss_count == 0) {
+         break;
+      }
+   }
+
+   return $weight;
 }
 
 /**
@@ -39,7 +93,7 @@ function Calc_recognition($weight = '', $data = '', $label = '')
  *
  * @param Array $weight weight vector
  * @param Array $data   input data
- * 
+ *
  * @return Int $ret result
  */
 function Multiply_vector($weight = '', $data = '')
@@ -48,10 +102,10 @@ function Multiply_vector($weight = '', $data = '')
    $ret = 0;
 
    // format check
-   if (count($weight) != count($data)) return -1; 
+   if (count($weight) != count($data)) return -1;
 
    // null check
-   if ($weight == '' || $data == '') return -1; 
+   if ($weight == '' || $data == '') return -1;
 
    // calculate
    foreach ($weight as $key => $value) {
@@ -61,58 +115,34 @@ function Multiply_vector($weight = '', $data = '')
    return $ret;
 }
 
-
 /**
- * Add vector to each other
- *
- * @param Array $weight weight vector
- * @param Array $data   input data
- * 
- * @return Int $ret result
- */
-function Add_vector($weight = '', $data = '')
-{
-   // return array
-   $ret = [];
-
-   // format check
-   if (count($weight) != count($data)) return -1; 
-
-   // null check
-   if ($weight == '' || $data == '') return -1; 
-
-   // calculate
-   foreach ($weight as $key => $value) {
-      $ret[$key] += $weight[$key] + $data[$key];
-   }
-
-   return $ret;
-}
-
-
-/**
- * learning part(update weight vector)
+ * Learning part(update weight vector)
  *
  * @param Array  $weight weight vector
  * @param Array  $data   learning data
  * @param String $label  expect label
  *
- * @return Array $rets result
+ * @return Array $ret updated weight vector
  */
 function Update_weight($weight, $data, $label)
 {
-   $rets = '';
-   $new_data = [];
+   $ret = [];
+   $cnt = count($weight);
 
    // learning cofficient
-   $lc = 0.3;
+   $lc = 0.8;
 
-   // learn
-   foreach ($data as $val) {
-      array_push($new_data, $lc * $label * $val);
+   // learning
+   foreach ($weight as $key => $element) {
+      if ($key == $cnt) {
+         $ret[$key] = $element + ($lc * $label);
+      } else {
+         $ret[$key] = $element + ($lc * $label * $data[$key]);
+      }
    }
 
-   $rets = Add_vector($weight, $new_data);
-   return $rets;
+   return $ret;
 }
 
+// execution simple perceptron
+var_dump(index());
