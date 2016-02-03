@@ -1,37 +1,39 @@
-これは機械学習のための単純パーセプトロンのプログラムになります。
-### 環境について
-- PHP 5.4以上
-- Composer
-- PHPUnit
+This program is the simple perceptron for machine learning.
 
-### 使い方
-#### Composerのインストール
+### About environment
+- PHP over 5.4
+- Composer
+- PHPUnit over 4.6.3
+
+### How to use
+#### Install Composer
 ```bash
 $ composer self-update
 $ composer install
 ```
 
-#### PHPUnitのインストール
+#### Install PHPUnit
 ```bash
 $ composer install
 ```
 
-#### 判定の実行
-アプリケーションのドキュメントルートで以下のコマンドを実行してください。
+#### Run this program
+Please execute the following command in the application's document root.
+
 ```bash
 $ php src/simple_perceptron.php
 ```
 
-#### テストの実行
+#### Run unit test
 ```bash
 $ cd test/
-$ ../vendor/bin/phpunit  // --color=auto --testdox-textなどのオプションは適宜付与
+$ ../vendor/bin/phpunit  // If you need, add options such as --color=auto --testdox-text
 ```
 
-※もしテスト実行速度が遅いと感じる場合は、`phpunit`のバージョンを`4.6.3`に変更してください。
+※If you feel that the unit test speed is slow, change version of `PHPUnit` to `4.6.3`.
 
-### ラインセンス
-ライセンスは「[MIT License](https://github.com/k-kuwahara/simple_perceptron/blob/master/LICENSE.md)」です。
+### License
+It is 「[MIT License](https://github.com/k-kuwahara/simple_perceptron/blob/master/LICENSE.md)」.
 
-### その他
-コードレビュー、ご意見をいつでもお待ちしております！
+### Other
+Welcome your code review and comments at any time!
