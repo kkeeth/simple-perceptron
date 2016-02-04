@@ -80,9 +80,8 @@ function Calc_recognition($weight = '', $data = '', $label = '')
          }
       }
 
-      if ($miss_count == 0) {
-         break;
-      }
+      if ($miss_count == 0) break;
+      if ($cnt > 1000) return false;   // is not convergent
    }
 
    return $weight;
