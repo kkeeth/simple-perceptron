@@ -115,7 +115,7 @@ class simple_perceptron
       if (count($weight) != count($data)) return false;
 
       // null check
-      if ($weight == '' || $data == '') {var_dump("hogehoge"); return false;}
+      if ($weight == '' || $data == '') return false;
 
       // calculate
       foreach ($weight as $key => $value) {
