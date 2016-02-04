@@ -71,6 +71,24 @@ class SimplePerceptronTest extends PHPUnit_Framework_TestCase
    }
 
    /**
+    * Multiply to vector each other
+    *
+    */
+   public function test_Multiply_vector()
+   {
+      $ret = $this->obj->Multiply_vector([0, 0, 1], [1, 3, 0]);
+      $this->assertEquals(0, $ret);
+      $ret = $this->obj->Multiply_vector([1, -1, 2], [3, -2, -1]);
+      $this->assertEquals(3, $ret);
+
+      $ret = $this->obj->Multiply_vector([0, 0, 1], '');
+      $this->assertFalse($ret);
+      $ret = $this->obj->Multiply_vector('', [3, -2, -1]);
+      $this->assertFalse($ret);
+
+   }
+
+   /**
     * Execute test
     *
     */
