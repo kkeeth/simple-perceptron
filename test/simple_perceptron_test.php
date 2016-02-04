@@ -10,7 +10,6 @@ class SimplePerceptronTest extends PHPUnit_Framework_TestCase
       $this->assertEquals(1, $ret);
       $this->assertEquals(1, $val);
 
-      // error
       // data count error
       list($ret, $val) = Calc_recognition([1,1,-1], [2, 0], 1);
       $this->assertEquals(-1, $val);
