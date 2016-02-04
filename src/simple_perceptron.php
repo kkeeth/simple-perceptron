@@ -72,7 +72,14 @@ function Calc_recognition($weight = '', $data = '', $label = '')
       foreach ($data as $key => $point_data) {
          // calculate vector each other
          $val = Multiply_vector($weight, Get_data($point_data));
-         $ret = $val >= 0 ? 1 : -1;
+
+         // error check
+         if ($val === false) {
+            return false;
+         } else {
+            $ret = $val >= 0 ? 1 : -1;
+         }
+
          // identify
          if ($ret !== $label[$key]) {
             $weight = Update_weight($weight, Get_data($point_data), $label[$key]);
@@ -101,10 +108,10 @@ function Multiply_vector($weight = '', $data = '')
    $ret = 0;
 
    // format check
-   if (count($weight) != count($data)) return -1;
+   if (count($weight) != count($data)) return false;
 
    // null check
-   if ($weight == '' || $data == '') return -1;
+   if ($weight == '' || $data == '') return false;
 
    // calculate
    foreach ($weight as $key => $value) {
