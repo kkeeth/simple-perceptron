@@ -27,7 +27,7 @@ $ php src/simple_perceptron.php
 #### Run unit test
 ```bash
 $ cd test/
-$ ../vendor/bin/phpunit  // If you need, add options such as --color=auto --testdox-text
+$ ../vendor/bin/phpunit  # If you need, add options such as --color=auto --testdox-text
 ```
 
 ※If you feel that the unit test speed is slow, change version of `PHPUnit` to `4.6.3`.
