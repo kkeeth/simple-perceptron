@@ -76,16 +76,10 @@ class simple_perceptron
             $val = self::Multiply_vector($weight, self::Get_data($point_data));
 
             // error check
-            if ($val === false) {
-               return false;
-
-            // plus minus check
-            } else {
-               $ret = $val >= 0 ? 1 : -1;
-            }
+            if ($val === false) return false;
 
             // identify
-            if ($ret !== $label[$key]) {
+            if ($val * $label[$key] <= 0) {
                $weight = self::Update_weight($weight, self::Get_data($point_data), $label[$key]);
                $miss_count++;
             }
