@@ -1,19 +1,15 @@
 This program is the simple perceptron for machine learning.
 
-### About environment
+### Execution environment
 - PHP over 5.4
 - Composer
 - PHPUnit over 4.6.3
 
 ### How to use
-#### Install Composer
-```bash
-$ composer self-update
-$ composer install
-```
 
 #### Install PHPUnit
 ```bash
+$ composer self-update
 $ composer install
 ```
 
