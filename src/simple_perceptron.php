@@ -1,6 +1,6 @@
 <?php
-define('DATA_COUNT', 10);
-define('DIMENSION', 5);
+define('DATA_COUNT', 5);
+define('DIMENSION', 3);
 
 class simple_perceptron
 {
@@ -32,7 +32,7 @@ class simple_perceptron
       foreach ($data as $key => $value) {
          $data[$key]   = [];
          $labels[$key] = mt_rand(-1, 1) >= 0 ?  1 : -1;
-         for ($i = 0; $i < DIMENSION-1; $i++) {
+         for ($i = 0; $i < DIMENSION; $i++) {
             $data[$key][$i] = mt_rand(1, 5);
          }
       }
@@ -66,7 +66,7 @@ class simple_perceptron
    {
       $cnt = 0;
       $updated_weight = [];
-      if ($weight == '') $weight = array_fill(0, DIMENSION, 0);
+      if ($weight == '') $weight = array_fill(0, DIMENSION+1, 0);
       while (true) {
          $cnt++;
          $miss_count = 0;
