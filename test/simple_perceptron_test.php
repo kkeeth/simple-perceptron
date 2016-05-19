@@ -42,7 +42,7 @@ class SimplePerceptronTest extends PHPUnit_Framework_TestCase
          [1, 2, 4],
          [4, 1, 1],
          [2, 1, 5],
-    ];
+      ];
 
       $this->label = [1, 1, -1, -1, 1];
    }
@@ -56,6 +56,7 @@ class SimplePerceptronTest extends PHPUnit_Framework_TestCase
       list($data, $labels) = $this->obj->Create_data();
       $this->assertCount(5, $data);
       $this->assertCount(3, $data[0]);
+      $this->assertCount(3, $data[4]);
       $this->assertCount(5, $labels);
    }
 
