@@ -1,6 +1,7 @@
 <?php
 define('DATA_COUNT', 5);
 define('DIMENSION', 3);
+define('LC', 0.8);   // learning cofficient
 
 class simple_perceptron
 {
@@ -133,15 +134,12 @@ class simple_perceptron
       $ret = [];
       $cnt = count($weight);
 
-      // learning cofficient
-      $lc = 0.8;
-
       // learning
       foreach ($weight as $key => $element) {
          if ($key == $cnt) {
-            $ret[$key] = $element + ($lc * $label);
+            $ret[$key] = $element + (LC * $label);
          } else {
-            $ret[$key] = $element + ($lc * $label * $data[$key]);
+            $ret[$key] = $element + (LC * $label * $data[$key]);
          }
       }
 
