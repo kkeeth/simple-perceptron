@@ -65,12 +65,19 @@ class simple_perceptron
     */
    function Calc_recognition($weight = '', $data = '', $label = '')
    {
+      // for infinity loop
       $cnt = 0;
+      // re-loop flag
+      $miss_flg = 1;
+      // new weight vector
       $updated_weight = [];
+
       if ($weight == '') $weight = array_fill(0, DIMENSION+1, 0);
-      while (true) {
+
+      // learning
+      while ($miss_flg) {
          $cnt++;
-         $miss_count = 0;
+         $miss_flg = 0;
 
          foreach ($data as $key => $point_data) {
             // calculate vector each other
@@ -82,11 +89,10 @@ class simple_perceptron
             // identify
             if ($val * $label[$key] <= 0) {
                $weight = self::Update_weight($weight, self::Get_data($point_data), $label[$key]);
-               $miss_count++;
+               $miss_flg = 1;
             }
          }
 
-         if ($miss_count == 0) break;
          if ($cnt > 1000) return false;   // is not convergent
       }
 
